@@ -1,4 +1,4 @@
 {
-  "example_mod.configuration.client": "client",
-  "example_mod.configuration.example": "example"
+  "easydisenchanting.configuration.client": "client",
+  "easydisenchanting.configuration.example": "example"
 }

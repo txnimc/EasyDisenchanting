@@ -1,7 +1,7 @@
-package toni.examplemod;
+package toni.easydisenchanting;
 
 import net.minecraft.world.level.block.Blocks;
-import toni.examplemod.foundation.config.AllConfigs;
+import toni.easydisenchanting.foundation.config.AllConfigs;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,15 +47,15 @@ import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 
 
 #if FORGELIKE
-@Mod("example_mod")
+@Mod("easydisenchanting")
 #endif
-public class ExampleMod #if FABRIC implements ModInitializer, ClientModInitializer #endif
+public class EasyDisenchanting #if FABRIC implements ModInitializer, ClientModInitializer #endif
 {
-    public static final String MODNAME = "Example Mod";
-    public static final String ID = "example_mod";
+    public static final String MODNAME = "Easy Disenchanting";
+    public static final String ID = "easydisenchanting";
     public static final Logger LOGGER = LogManager.getLogger(MODNAME);
 
-    public ExampleMod(#if NEO IEventBus modEventBus, ModContainer modContainer #endif) {
+    public EasyDisenchanting(#if NEO IEventBus modEventBus, ModContainer modContainer #endif) {
         #if FORGE
         var context = FMLJavaModLoadingContext.get();
         var modEventBus = context.getModEventBus();
@@ -82,11 +82,11 @@ public class ExampleMod #if FABRIC implements ModInitializer, ClientModInitializ
         #if FABRIC
             AllConfigs.register((type, spec) -> {
                 #if mc >= 215
-                ConfigRegistry.INSTANCE.register(ExampleMod.ID, type, spec);
+                ConfigRegistry.INSTANCE.register(EasyDisenchanting.ID, type, spec);
                 #elif mc >= 211
-                NeoForgeConfigRegistry.INSTANCE.register(ExampleMod.ID, type, spec);
+                NeoForgeConfigRegistry.INSTANCE.register(EasyDisenchanting.ID, type, spec);
                 #else
-                ForgeConfigRegistry.INSTANCE.register(ExampleMod.ID, type, spec);
+                ForgeConfigRegistry.INSTANCE.register(EasyDisenchanting.ID, type, spec);
                 #endif
             });
         #endif
@@ -96,7 +96,7 @@ public class ExampleMod #if FABRIC implements ModInitializer, ClientModInitializ
     public void onInitializeClient() {
         #if AFTER_21_1
             #if FABRIC
-            ConfigScreenFactoryRegistry.INSTANCE.register(ExampleMod.ID, ConfigurationScreen::new);
+            ConfigScreenFactoryRegistry.INSTANCE.register(EasyDisenchanting.ID, ConfigurationScreen::new);
             #endif
         #endif
     }

@@ -1,4 +1,4 @@
-package toni.examplemod.foundation.config;
+package toni.easydisenchanting.foundation.config;
 
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
-import toni.examplemod.ExampleMod;
+import toni.easydisenchanting.EasyDisenchanting;
 import toni.lib.config.ConfigBase;
 import toni.lib.utils.PlatformUtils;
 import com.electronwill.nightconfig.core.UnmodifiableConfig;
@@ -51,21 +51,13 @@ public class AllConfigs {
 
     private static final Map<ModConfig.Type, ConfigBase> CONFIGS = new EnumMap<>(ModConfig.Type.class);
 
-    private static CClient client;
     private static CCommon common;
-    private static CServer server;
 
-    public static CClient client() {
-        return client;
-    }
 
     public static CCommon common() {
         return common;
     }
 
-    public static CServer server() {
-        return server;
-    }
 
     public static ConfigBase byType(ModConfig.Type type) {
         return CONFIGS.get(type);
@@ -85,11 +77,7 @@ public class AllConfigs {
     }
 
     public static void register(BiConsumer<ModConfig.Type, #if after_21_1 ModConfigSpec #else ForgeConfigSpec #endif> registration) {
-        if (!PlatformUtils.isDedicatedServer())
-            client = register(CClient::new, ModConfig.Type.CLIENT);
-        
         common = register(CCommon::new, ModConfig.Type.COMMON);
-        server = register(CServer::new, ModConfig.Type.SERVER);
 
         for (Entry<ModConfig.Type, ConfigBase> pair : CONFIGS.entrySet())
             registration.accept(pair.getKey(), pair.getValue().specification);
@@ -108,7 +96,7 @@ public class AllConfigs {
     public static void addEntrySetTranslations(HashSet<String> existing, Set<? extends UnmodifiableConfig.Entry> config, FabricLanguageProvider.TranslationBuilder translationBuilder) {
         for (var entry : config) {
             if (existing.add(entry.getKey()))
-                translationBuilder.add(ExampleMod.ID + ".configuration." + entry.getKey(), entry.getKey());
+                translationBuilder.add(EasyDisenchanting.ID + ".configuration." + entry.getKey(), entry.getKey());
 
             if (entry.getValue() instanceof com.electronwill.nightconfig.core.AbstractConfig children) {
                 addEntrySetTranslations(existing, children.entrySet(), translationBuilder);
